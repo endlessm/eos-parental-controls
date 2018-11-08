@@ -127,6 +127,7 @@ test_app_filter_builder_non_empty (BuilderFixture *fixture,
                    EPC_APP_FILTER_OARS_VALUE_MODERATE);
   g_assert_cmpint (epc_app_filter_get_oars_value (filter, "something-else"), ==,
                    EPC_APP_FILTER_OARS_VALUE_UNKNOWN);
+  g_assert_true (epc_app_filter_is_oars_set (filter));
 }
 
 /* Test building an empty #EpcAppFilter using an #EpcAppFilterBuilder. */
@@ -153,6 +154,7 @@ test_app_filter_builder_empty (BuilderFixture *fixture,
                    EPC_APP_FILTER_OARS_VALUE_UNKNOWN);
   g_assert_cmpint (epc_app_filter_get_oars_value (filter, "something-else"), ==,
                    EPC_APP_FILTER_OARS_VALUE_UNKNOWN);
+  g_assert_false (epc_app_filter_is_oars_set (filter));
 }
 
 /* Check that copying a cleared #EpcAppFilterBuilder works, and the copy can

@@ -197,6 +197,35 @@ epc_app_filter_is_flatpak_ref_allowed (EpcAppFilter *filter,
 }
 
 /**
+ * epc_app_filter_is_oars_set:
+ * @filter: an #EpcAppFilter
+ *
+ * Get whether any OARS sections are set to a known value in the filter. If the
+ * filter has no OARS sections set, or all sections are set to
+ * %EPC_APP_FILTER_OARS_VALUE_UNKNOWN, %FALSE will be returned. Otherwise %TRUE
+ * will be returned.
+ *
+ * Returns: %TRUE if any OARS sections are set, %FALSE otherwise
+ * Since: 0.1.0
+ */
+gboolean
+epc_app_filter_is_oars_set (EpcAppFilter *filter)
+{
+  GVariantIter iter;
+  const gchar *value_str;
+
+  g_variant_iter_init (&iter, filter->oars_ratings);
+
+  while (g_variant_iter_loop (&iter, "{&s&s}", NULL, &value_str))
+    {
+      if (!g_str_equal (value_str, "unknown"))
+        return TRUE;
+    }
+
+  return FALSE;
+}
+
+/**
  * epc_app_filter_get_oars_value:
  * @filter: an #EpcAppFilter
  * @oars_section: name of the OARS section to get the value from

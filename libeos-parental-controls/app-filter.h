@@ -103,6 +103,7 @@ gboolean epc_app_filter_is_path_allowed        (EpcAppFilter *filter,
 gboolean epc_app_filter_is_flatpak_ref_allowed (EpcAppFilter *filter,
                                                 const gchar  *flatpak_ref);
 
+gboolean              epc_app_filter_is_oars_set    (EpcAppFilter *filter);
 EpcAppFilterOarsValue epc_app_filter_get_oars_value (EpcAppFilter *filter,
                                                      const gchar  *oars_section);
 
