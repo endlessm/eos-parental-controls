@@ -592,13 +592,14 @@ epc_get_app_filter (GDBusConnection  *connection,
   g_autoptr(GHashTable) oars_map = NULL;
   gboolean allow_user_installation;
   gboolean allow_system_installation;
+  g_autoptr(GDBusConnection) connection_owned = NULL;
 
   g_return_val_if_fail (connection == NULL || G_IS_DBUS_CONNECTION (connection), NULL);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
   if (connection == NULL)
-    connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, cancellable, error);
+    connection = connection_owned = g_bus_get_sync (G_BUS_TYPE_SYSTEM, cancellable, error);
   if (connection == NULL)
     return NULL;
 
@@ -838,6 +839,7 @@ epc_set_app_filter (GDBusConnection  *connection,
   g_autoptr(GVariant) allow_user_installation_result_variant = NULL;
   g_autoptr(GVariant) allow_system_installation_result_variant = NULL;
   g_autoptr(GError) local_error = NULL;
+  g_autoptr(GDBusConnection) connection_owned = NULL;
 
   g_return_val_if_fail (connection == NULL || G_IS_DBUS_CONNECTION (connection), FALSE);
   g_return_val_if_fail (app_filter != NULL, FALSE);
@@ -846,7 +848,7 @@ epc_set_app_filter (GDBusConnection  *connection,
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
   if (connection == NULL)
-    connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, cancellable, error);
+    connection = connection_owned = g_bus_get_sync (G_BUS_TYPE_SYSTEM, cancellable, error);
   if (connection == NULL)
     return FALSE;
 
