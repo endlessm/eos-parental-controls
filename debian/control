@@ -31,7 +31,7 @@ Section: misc
 Architecture: any
 Multi-arch: same
 Depends:
- eos-parental-controls-data (= ${source:Version}),
+ malcontent-data,
  gir1.2-eos-parental-controls-0,
  gir1.2-glib-2.0,
  python3,
@@ -59,7 +59,7 @@ Package: libeos-parental-controls-0
 Section: misc
 Architecture: any
 Depends:
- eos-parental-controls-data (= ${source:Version}),
+ malcontent-data,
  ${misc:Depends},
  ${shlibs:Depends},
 Description: Parental Controls Library
